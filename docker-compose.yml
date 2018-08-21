@@ -1,9 +1,10 @@
 version: '2'
 services:
+  db:
+    image: postgres
   tracker:
-    container_name: water-tracker
-    image: water-tracker-image
-    command: bash
+    build: .
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
     environment:
       RAILS_ENV: development
       RAILS_PORT: 3000
@@ -12,6 +13,8 @@ services:
       - .:/app
     ports:
       - 3000:3000
+    depends_on:
+      - db
     user: root
     stdin_open: true
     tty: true
