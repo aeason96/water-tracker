@@ -1,0 +1,17 @@
+version: '2'
+services:
+  tracker:
+    container_name: water-tracker
+    image: water-tracker-image
+    command: bash
+    environment:
+      RAILS_ENV: development
+      RAILS_PORT: 3000
+      HOME: /app
+    volumes: 
+      - .:/app
+    ports:
+      - 3000:3000
+    user: root
+    stdin_open: true
+    tty: true
