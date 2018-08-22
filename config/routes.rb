@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get '/hello-world' => 'application#hello_world'
   resources :drinks
   resources :containers
   resources :users
