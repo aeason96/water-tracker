@@ -1,5 +1,21 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :update, :destroy]
+  include JwtAuthenticationConcern
+  # before_action :set_user, only: [:show, :update, :destroy]
+
+  def login
+    errors = ['Invalid email address/password combination.']
+    user = fetch_user
+    return render status: :bad_request, json: { errors: errors } if user.blank?
+    if user.authenticate(params[:password])
+      render status: :ok, json: { value: create_token(user) }
+    else
+      render status: :bad_request, json: { errors: errors }
+    end
+  end
+
+  def fetch_user
+    User.find_by_email_case_insensitive(params['email'])
+  end
 
   # GET /users
   def index
