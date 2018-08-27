@@ -14,7 +14,7 @@ class UsersController < ApplicationController
   end
 
   def fetch_user
-    User.find_by_email_case_insensitive(params['email'])
+    User.find_by_email(params['email'])
   end
 
   # GET /users

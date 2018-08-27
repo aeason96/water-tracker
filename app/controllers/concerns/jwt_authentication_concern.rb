@@ -3,7 +3,7 @@
 module JwtAuthenticationConcern
   ALGORITHM = 'HS512'
   def create_token(user, expires = Time.now.to_i + 24 * 3600)
-    payload = { user_id: user.id, role: user.role, exp: expires }
+    payload = { user_id: user.id, exp: expires }
     JWT.encode(payload, '12345', ALGORITHM)
   end
 
